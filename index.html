@@ -1,0 +1,2842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Little World ❤️💙</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+
+            /* PINK + BLUE */
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffd6e7 0%,
+                    #fff5fa 35%,
+                    #e8f5ff 65%,
+                    #cfeeff 100%
+                );
+
+            color: #49344f;
+        }
+
+
+        /* =========================
+           LOGIN SCREEN
+        ========================= */
+
+        #loginScreen {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            padding: 45px 30px;
+            text-align: center;
+
+            background: rgba(255,255,255,0.94);
+
+            border-radius: 30px;
+
+            box-shadow:
+                0 15px 45px rgba(80, 100, 180, 0.18),
+                0 0 0 2px rgba(255, 150, 190, 0.15);
+
+            animation: fadeIn 1s ease;
+        }
+
+        .heart-icon {
+            font-size: 60px;
+            animation: heartbeat 1.5s infinite;
+            margin-bottom: 15px;
+        }
+
+        .login-card h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #e84f87,
+                    #8b6de8,
+                    #3898e8
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-card p {
+            color: #76617b;
+            margin-bottom: 25px;
+        }
+
+        .date-input {
+            width: 100%;
+            padding: 15px;
+
+            border: 2px solid #e6b5d2;
+            border-radius: 15px;
+
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+
+            color: #543b58;
+            background: #fffafd;
+        }
+
+        .date-input:focus {
+            border-color: #8caee8;
+        }
+
+        .unlock-btn {
+            width: 100%;
+            margin-top: 18px;
+            padding: 15px;
+
+            border: none;
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #e85d88,
+                    #9b75e8,
+                    #4b9ee8
+                );
+
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .unlock-btn:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 8px 20px rgba(100, 110, 200, 0.25);
+        }
+
+        #errorMessage {
+            color: #d83b64;
+            margin-top: 15px;
+            display: none;
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           SURPRISE SCREEN
+        ========================= */
+
+        #surpriseScreen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 30% 30%,
+                    #fff1f7,
+                    #ffd1e3 35%,
+                    #d9efff 70%,
+                    #bfe4ff
+                );
+
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .surprise-content {
+            position: relative;
+            z-index: 10;
+            padding: 25px;
+            animation: zoomIn 1s ease;
+        }
+
+        .surprise-content .big-heart {
+            font-size: 75px;
+            animation: heartbeat 1s infinite;
+        }
+
+        .surprise-content h1 {
+            font-size: clamp(35px, 8vw, 75px);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #e43670,
+                    #9d6ee8,
+                    #3c91df
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            margin: 15px 0;
+        }
+
+        .surprise-content h2 {
+            font-size: clamp(20px, 4vw, 32px);
+            color: #664c78;
+            font-weight: 500;
+        }
+
+        .surprise-content p {
+            margin-top: 18px;
+            font-size: 18px;
+            color: #6f6681;
+        }
+
+
+        /* =========================
+           FLOATING HEARTS
+        ========================= */
+
+        .floating-heart {
+            position: absolute;
+            bottom: -80px;
+            font-size: 30px;
+            animation: floatUp linear forwards;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+
+            from {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-120vh) rotate(360deg);
+                opacity: 0;
+            }
+
+        }
+
+
+        /* =========================
+           BALLOONS
+        ========================= */
+
+        .balloon {
+            position: absolute;
+            bottom: -150px;
+            font-size: 60px;
+            animation: balloonUp 7s linear forwards;
+        }
+
+        @keyframes balloonUp {
+
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-120vh);
+            }
+
+        }
+
+
+        /* =========================
+           CONFETTI
+        ========================= */
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 18px;
+            top: -30px;
+            animation: confettiFall linear forwards;
+        }
+
+        @keyframes confettiFall {
+
+            to {
+                transform: translateY(110vh) rotate(720deg);
+            }
+
+        }
+
+
+        /* =========================
+           CONTINUE BUTTON
+        ========================= */
+
+        #continueBtn {
+            display: none;
+            margin: 30px auto 0;
+            padding: 14px 28px;
+
+            border: none;
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #e85d88,
+                    #9875e8,
+                    #4c9fe8
+                );
+
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 20px rgba(90, 100, 190, 0.25);
+        }
+
+        #continueBtn:hover {
+            transform: scale(1.05);
+        }
+
+
+        /* =========================
+           MAIN PAGE
+        ========================= */
+
+        #mainPage {
+            display: none;
+            min-height: 100vh;
+            overflow-y: auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .main-container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .main-container h1 {
+
+            font-size: 42px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #d93667,
+                    #936fe1,
+                    #318ed7
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #76617b;
+            margin-bottom: 30px;
+        }
+
+
+        /* =========================
+           COUNTER
+        ========================= */
+
+        .counter-card {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+
+            box-shadow:
+                0 10px 30px rgba(80, 100, 180, 0.12);
+
+            margin-bottom: 25px;
+
+            border-top: 4px solid #e87da5;
+            border-bottom: 4px solid #73afe5;
+        }
+
+        .counter-card h2 {
+            margin-bottom: 15px;
+            color: #685075;
+        }
+
+        #loveCounter {
+
+            font-size: 22px;
+            font-weight: bold;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #e84f87,
+                    #896ee3,
+                    #398fd8
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        /* =========================
+           MAIN MENU
+        ========================= */
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .menu button {
+
+            border: none;
+            padding: 20px 10px;
+            border-radius: 20px;
+
+            background: white;
+            color: #65476d;
+
+            font-size: 15px;
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 20px rgba(80, 100, 180, 0.1);
+
+            transition: 0.3s;
+
+            border: 1px solid #f2d9e7;
+        }
+
+        .menu button:hover {
+
+            transform: translateY(-5px);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff0f6,
+                    #edf8ff
+                );
+        }
+
+
+        /* =========================
+           GENERAL SECTION
+        ========================= */
+
+        .section {
+            display: none;
+
+            background: white;
+
+            margin-top: 25px;
+            padding: 30px;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 10px 30px rgba(80, 100, 180, 0.12);
+
+            text-align: left;
+
+            animation: fadeIn 0.5s ease;
+
+            border-left: 4px solid #e875a2;
+            border-right: 4px solid #70afe5;
+        }
+
+        .section h2 {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #d93667,
+                    #8e6ee0,
+                    #318ed7
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            margin-bottom: 15px;
+        }
+
+        .letter {
+            line-height: 1.8;
+            color: #6c5268;
+            white-space: pre-line;
+        }
+
+
+        /* =========================
+           MEMORY MENU
+        ========================= */
+
+        .memory-menu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .memory-card {
+
+            border: none;
+            min-height: 130px;
+            padding: 20px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffe1ed 0%,
+                    #fff6fa 45%,
+                    #e5f4ff 100%
+                );
+
+            color: #684d70;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 18px rgba(80, 100, 180, 0.08);
+
+            transition: 0.3s;
+
+            border: 1px solid rgba(120, 150, 220, 0.15);
+        }
+
+        .memory-card:hover {
+
+            transform: translateY(-5px);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffd4e5,
+                    #f5edff,
+                    #d8efff
+                );
+        }
+
+        .memory-card span {
+            display: block;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+
+        /* =========================
+           MEMORY CONTENT
+        ========================= */
+
+        .memory-content {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff8fb,
+                    #f3faff
+                );
+
+            animation: fadeIn 0.5s ease;
+        }
+
+        .memory-content.active {
+            display: block;
+        }
+
+        .memory-content h3 {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #d93667,
+                    #916fe0,
+                    #358fd8
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .memory-text {
+            color: #6c5268;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================
+           MEMORY IMAGE GALLERY
+        ========================= */
+
+        .memory-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .memory-gallery img {
+
+            width: 100%;
+            height: 230px;
+
+            object-fit: cover;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 15px rgba(80, 100, 180, 0.12);
+
+            background: #ffeef4;
+
+            transition: 0.3s;
+
+            cursor: zoom-in;
+
+            border: 2px solid transparent;
+        }
+
+        .memory-gallery img:hover {
+
+            transform: scale(1.02);
+
+            border-color: #d99ac0;
+        }
+
+
+        /* =========================
+           VIDEO
+        ========================= */
+
+        .memory-video {
+
+            width: 100%;
+            max-height: 500px;
+
+            border-radius: 18px;
+
+            display: block;
+
+            margin: 15px 0 20px;
+
+            background: #000;
+
+            box-shadow:
+                0 5px 15px rgba(80, 100, 180, 0.12);
+        }
+
+
+        /* =========================
+           BACK BUTTON
+        ========================= */
+
+        .back-memory {
+
+            margin-top: 25px;
+
+            border: none;
+
+            padding: 11px 20px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #e85d88,
+                    #8c72df,
+                    #459cde
+                );
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .back-memory:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 6px 15px rgba(90, 100, 190, 0.2);
+        }
+
+
+        /* =========================
+           IMAGE LIGHTBOX
+        ========================= */
+
+        .image-lightbox {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 9999;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(70, 20, 50, 0.94),
+                    rgba(15, 40, 70, 0.94)
+                );
+
+            justify-content: center;
+            align-items: center;
+
+            padding: 70px 80px;
+
+            cursor: zoom-out;
+        }
+
+        .image-lightbox.active {
+            display: flex;
+        }
+
+        .image-lightbox img {
+
+            max-width: 85%;
+            max-height: 82vh;
+
+            width: auto;
+            height: auto;
+
+            object-fit: contain;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 10px 50px rgba(0,0,0,0.6);
+
+            animation: lightboxZoom 0.3s ease;
+
+            cursor: default;
+        }
+
+
+        /* =========================
+           LIGHTBOX CLOSE
+        ========================= */
+
+        .lightbox-close {
+
+            position: absolute;
+
+            top: 15px;
+            right: 25px;
+
+            font-size: 45px;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            line-height: 1;
+
+            z-index: 10000;
+
+            transition: 0.2s;
+        }
+
+        .lightbox-close:hover {
+            transform: scale(1.15);
+        }
+
+
+        /* =========================
+           LIGHTBOX NAVIGATION
+        ========================= */
+
+        .lightbox-prev,
+        .lightbox-next {
+
+            position: absolute;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 55px;
+            height: 55px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            color: white;
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            z-index: 10001;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            transition: 0.25s;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e85d88,
+                    #7c9de5
+                );
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+
+            transform:
+                translateY(-50%)
+                scale(1.12);
+        }
+
+
+        /* =========================
+           IMAGE COUNTER
+        ========================= */
+
+        .lightbox-counter {
+
+            position: absolute;
+
+            bottom: 22px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            padding: 8px 18px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(232,93,136,0.9),
+                    rgba(77,151,222,0.9)
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            z-index: 10001;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.25);
+        }
+
+
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        @keyframes heartbeat {
+
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+
+        }
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        @keyframes zoomIn {
+
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+        }
+
+        @keyframes lightboxZoom {
+
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .login-card {
+                padding: 35px 22px;
+            }
+
+            .login-card h1 {
+                font-size: 25px;
+            }
+
+            .menu {
+                grid-template-columns: 1fr;
+            }
+
+            .memory-menu {
+                grid-template-columns: 1fr;
+            }
+
+            .memory-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .memory-gallery img {
+                height: 260px;
+            }
+
+            #mainPage {
+                padding: 25px 15px;
+            }
+
+            .main-container h1 {
+                font-size: 32px;
+            }
+
+            .section {
+                padding: 22px 18px;
+            }
+
+            .memory-content {
+                padding: 18px;
+            }
+
+            .memory-content h3 {
+                font-size: 21px;
+            }
+
+            .image-lightbox {
+                padding: 60px 50px;
+            }
+
+            .image-lightbox img {
+                max-width: 92%;
+                max-height: 78vh;
+            }
+
+            .lightbox-close {
+                top: 12px;
+                right: 18px;
+                font-size: 38px;
+            }
+
+            .lightbox-prev,
+            .lightbox-next {
+
+                width: 45px;
+                height: 45px;
+
+                font-size: 22px;
+            }
+
+            .lightbox-prev {
+                left: 8px;
+            }
+
+            .lightbox-next {
+                right: 8px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- =========================================
+     LOGIN SCREEN
+========================================= -->
+
+<div id="loginScreen">
+
+    <div class="login-card">
+
+        <div class="heart-icon">
+            ❤️
+        </div>
+
+        <h1>
+            Our Little World
+        </h1>
+
+        <p>
+            Do you remember the day our story began? 🫶
+        </p>
+
+        <input
+            type="date"
+            id="anniversaryDate"
+            class="date-input"
+        >
+
+        <button
+            class="unlock-btn"
+            onclick="unlockLove()"
+        >
+            UNLOCK OUR STORY ❤️
+        </button>
+
+        <div id="errorMessage">
+            Hmm... that's not our special date. 🥺❤️
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     SURPRISE SCREEN
+========================================= -->
+
+<div id="surpriseScreen">
+
+    <div class="surprise-content">
+
+        <div class="big-heart">
+            ❤️
+        </div>
+
+        <h1>
+            HAPPY 2ND<br>
+            ANNIVERSARY, LOVE! 🫶
+        </h1>
+
+        <h2>
+            Two years of us. ❤️
+        </h2>
+
+        <p>
+            And many more memories to come...
+        </p>
+
+        <button
+            id="continueBtn"
+            onclick="showMainPage()"
+        >
+            CONTINUE OUR STORY ❤️
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     MAIN PAGE
+========================================= -->
+
+<div id="mainPage">
+
+    <div class="main-container">
+
+        <h1>
+            ❤️ Our 2 Years ❤️
+        </h1>
+
+        <p class="subtitle">
+            October 8, 2024 — October 8, 2026
+        </p>
+
+
+        <!-- COUNTER -->
+
+        <div class="counter-card">
+
+            <h2>
+                We've been together for...
+            </h2>
+
+            <div id="loveCounter">
+                2 Years ❤️
+            </div>
+
+        </div>
+
+
+
+        <!-- MENU -->
+
+        <div class="menu">
+
+            <button onclick="openSection('letter')">
+                💌<br>
+                My Letter
+            </button>
+
+            <button onclick="openSection('memories')">
+                📸<br>
+                Our Memories
+            </button>
+
+        </div>
+
+
+
+        <!-- LETTER -->
+
+        <div
+            id="letter"
+            class="section"
+        >
+
+            <h2>
+                💌 A Letter For You
+            </h2>
+
+            <div class="letter">
+
+Love,
+
+Happy 2nd Anniversary to us! ❤️
+
+Two years ago, our story began, and since then, we've shared so many memories, laughs, challenges, and beautiful moments together.
+
+Thank you for staying, for understanding me, and for being part of my life.
+
+I may not always have the perfect words to say it, but I want you to know that I appreciate you more than you know.
+
+These two years are only a small part of the story I hope we continue writing together.
+
+I love you, and I will always be grateful that our paths crossed.
+
+Happy 2nd Anniversary, Love! 🫶❤️
+
+Here's to more memories, more laughter, more dates, and more years together.
+
+            </div>
+
+        </div>
+
+
+
+        <!-- OUR MEMORIES -->
+
+        <div
+            id="memories"
+            class="section"
+        >
+
+            <h2>
+                📸 Our Memories
+            </h2>
+
+            <p class="memory-text">
+
+                Every picture, every video, every trip,
+                and every little moment has a special
+                place in our story. ❤️
+
+            </p>
+
+
+
+            <!-- MEMORY MENU -->
+
+            <div
+                class="memory-menu"
+                id="memoryMenu"
+            >
+
+                <button
+                    class="memory-card"
+                    onclick="openMemory('startLove')"
+                >
+                    <span>❤️</span>
+                    Start of Our Love
+                </button>
+
+                <button
+                    class="memory-card"
+                    onclick="openMemory('firstPicture')"
+                >
+                    <span>📸</span>
+                    First Picture
+                </button>
+
+                <button
+                    class="memory-card"
+                    onclick="openMemory('firstMoment')"
+                >
+                    <span>🎥</span>
+                    First Moment
+                </button>
+
+                <button
+                    class="memory-card"
+                    onclick="openMemory('firstDate')"
+                >
+                    <span>🌸</span>
+                    First Date
+                </button>
+
+                <button
+                    class="memory-card"
+                    onclick="openMemory('favoritePicture')"
+                >
+                    <span>🥰</span>
+                    Favorite Picture
+                </button>
+
+                <button
+                    class="memory-card"
+                    onclick="openMemory('monthsary')"
+                >
+                    <span>🌷</span>
+                    1st Monthsary
+                </button>
+
+                <button
+                    class="memory-card"
+                    onclick="openMemory('firstAnniversary')"
+                >
+                    <span>💍</span>
+                    1st Anniversary
+                </button>
+
+                <button
+                    class="memory-card"
+                    onclick="openMemory('newYears')"
+                >
+                    <span>🎆</span>
+                    New Years
+                </button>
+
+                <button
+                    class="memory-card"
+                    onclick="openMemory('birthdays')"
+                >
+                    <span>🎂</span>
+                    Birthdays
+                </button>
+
+                <button
+                    class="memory-card"
+                    onclick="openMemory('incEvents')"
+                >
+                    <span>🎉</span>
+                    INC Events
+                </button>
+
+                <button
+                    class="memory-card"
+                    onclick="openMemory('foodTrip')"
+                >
+                    <span>🍔</span>
+                    Food Trip
+                </button>
+
+                <button
+                    class="memory-card"
+                    onclick="openMemory('motorTrip')"
+                >
+                    <span>🏍️</span>
+                    Motor Trip
+                </button>
+
+                <button
+                    class="memory-card"
+                    onclick="openMemory('carTrip')"
+                >
+                    <span>🚗</span>
+                    Car Trip
+                </button>
+
+                <button
+                    class="memory-card"
+                    onclick="openMemory('randomCute')"
+                >
+                    <span>🥰</span>
+                    Random Cute Pics / Moments
+                </button>
+
+            </div>
+
+
+
+            <!-- START OF OUR LOVE -->
+
+            <div
+                id="memory-startLove"
+                class="memory-content"
+            >
+
+                <h3>
+                    ❤️ Start of Our Love
+                </h3>
+
+                <p class="memory-text">
+
+                    This is where our story began. ❤️
+
+                    From the very beginning, we didn't know
+                    how many memories, laughs, challenges,
+                    and beautiful moments we would share.
+
+                    But this moment will always be special
+                    because this is where our story started. 🥺❤️
+
+                </p>
+
+                <div class="memory-gallery">
+
+                    <img
+                        src="./images/start-of-our-love.jpg"
+                        alt="Start of Our Love"
+                        onclick="openImage(this)"
+                    >
+
+                </div>
+
+                <video
+                    class="memory-video"
+                    controls
+                    playsinline
+                    preload="metadata"
+                >
+
+                    <source
+                        src="./images/start-of-our-love.mp4"
+                        type="video/mp4"
+                    >
+
+                    Your browser does not support
+                    the video tag.
+
+                </video>
+
+                <button
+                    class="back-memory"
+                    onclick="closeMemory()"
+                >
+                    ← Back to Memories
+                </button>
+
+            </div>
+
+
+
+            <!-- FIRST PICTURE -->
+
+            <div
+                id="memory-firstPicture"
+                class="memory-content"
+            >
+
+                <h3>
+                    📸 First Picture
+                </h3>
+
+                <p class="memory-text">
+                    Our very first picture together. ❤️
+                </p>
+
+                <div class="memory-gallery">
+
+                    <img
+                        src="images/first-picture.jpg"
+                        alt="First Picture"
+                        onclick="openImage(this)"
+                    >
+
+                </div>
+
+                <button
+                    class="back-memory"
+                    onclick="closeMemory()"
+                >
+                    ← Back to Memories
+                </button>
+
+            </div>
+
+
+
+            <!-- FIRST MOMENT -->
+
+            <div
+                id="memory-firstMoment"
+                class="memory-content"
+            >
+
+                <h3>
+                    🎥 First Moment
+                </h3>
+
+                <p class="memory-text">
+                    One of our first special moments together. ❤️
+                </p>
+
+                <video
+                    class="memory-video"
+                    controls
+                    playsinline
+                >
+
+                    <source
+                        src="images/first-moment.mp4"
+                        type="video/mp4"
+                    >
+
+                    Your browser does not support
+                    the video tag.
+
+                </video>
+
+                <button
+                    class="back-memory"
+                    onclick="closeMemory()"
+                >
+                    ← Back to Memories
+                </button>
+
+            </div>
+
+
+
+            <!-- FIRST DATE -->
+
+            <div
+                id="memory-firstDate"
+                class="memory-content"
+            >
+
+                <h3>
+                    🌸 First Date
+                </h3>
+
+                <p class="memory-text">
+                    Our first date. ❤️
+                </p>
+
+                <div class="memory-gallery">
+
+                    <img
+                        src="images/first-date.jpg"
+                        alt="First Date"
+                        onclick="openImage(this)"
+                    >
+
+                </div>
+
+                <button
+                    class="back-memory"
+                    onclick="closeMemory()"
+                >
+                    ← Back to Memories
+                </button>
+
+            </div>
+
+
+
+            <!-- FAVORITE PICTURE -->
+
+            <div
+                id="memory-favoritePicture"
+                class="memory-content"
+            >
+
+                <h3>
+                    🥰 Favorite Picture
+                </h3>
+
+                <p class="memory-text">
+                    One of my favorite pictures of us. ❤️
+                </p>
+
+                <div class="memory-gallery">
+
+                    <img
+                        src="images/favorite-picture.jpg"
+                        alt="Favorite Picture"
+                        onclick="openImage(this)"
+                    >
+
+                </div>
+
+                <button
+                    class="back-memory"
+                    onclick="closeMemory()"
+                >
+                    ← Back to Memories
+                </button>
+
+            </div>
+
+
+
+            <!-- 1ST MONTHSARY -->
+
+            <div
+                id="memory-monthsary"
+                class="memory-content"
+            >
+
+                <h3>
+                    🌷 1st Monthsary
+                </h3>
+
+                <p class="memory-text">
+                    Our very first monthsary. 🥺❤️
+                </p>
+
+                <div class="memory-gallery">
+
+                    <img
+                        src="images/1st-monthsary.jpg"
+                        alt="1st Monthsary"
+                        onclick="openImage(this)"
+                    >
+
+                </div>
+
+                <button
+                    class="back-memory"
+                    onclick="closeMemory()"
+                >
+                    ← Back to Memories
+                </button>
+
+            </div>
+
+
+
+            <!-- 1ST ANNIVERSARY -->
+
+            <div
+                id="memory-firstAnniversary"
+                class="memory-content"
+            >
+
+                <h3>
+                    💍 1st Anniversary
+                </h3>
+
+                <p class="memory-text">
+                    One year of us. ❤️
+                </p>
+
+                <div class="memory-gallery">
+
+                    <img
+                        src="images/1st-anniversary.jpg"
+                        alt="1st Anniversary"
+                        onclick="openImage(this)"
+                    >
+
+                </div>
+
+                <button
+                    class="back-memory"
+                    onclick="closeMemory()"
+                >
+                    ← Back to Memories
+                </button>
+
+            </div>
+
+
+
+            <!-- NEW YEARS -->
+
+            <div
+                id="memory-newYears"
+                class="memory-content"
+            >
+
+                <h3>
+                    🎆 New Years
+                </h3>
+
+                <p class="memory-text">
+
+                    New Year memories we've shared together. 🎆❤️
+
+                    Our 1st and 2nd New Year together. 🥺❤️
+
+                </p>
+
+                <div class="memory-gallery">
+
+                    <img
+                        src="./images/1st-newyear.jpg"
+                        alt="1st New Year"
+                        onclick="openImage(this)"
+                    >
+
+                </div>
+
+                <video
+                    class="memory-video"
+                    controls
+                    playsinline
+                    preload="metadata"
+                >
+
+                    <source
+                        src="./images/2nd-newyear.mp4"
+                        type="video/mp4"
+                    >
+
+                    Your browser does not support
+                    the video tag.
+
+                </video>
+
+                <button
+                    class="back-memory"
+                    onclick="closeMemory()"
+                >
+                    ← Back to Memories
+                </button>
+
+            </div>
+
+
+
+            <!-- BIRTHDAYS -->
+
+            <div
+                id="memory-birthdays"
+                class="memory-content"
+            >
+
+                <h3>
+                    🎂 Birthdays
+                </h3>
+
+                <p class="memory-text">
+                    The birthdays we've celebrated together. 🎂❤️
+                </p>
+
+                <div class="memory-gallery">
+
+                    <img src="images/birthdays/birthday-1.jpg"
+                         alt="Birthday 1"
+                         onclick="openImage(this)">
+
+                    <img src="images/birthdays/birthday-2.jpg"
+                         alt="Birthday 2"
+                         onclick="openImage(this)">
+
+                    <img src="images/birthdays/birthday-3.jpg"
+                         alt="Birthday 3"
+                         onclick="openImage(this)">
+
+                </div>
+
+                <button
+                    class="back-memory"
+                    onclick="closeMemory()"
+                >
+                    ← Back to Memories
+                </button>
+
+            </div>
+
+
+
+            <!-- INC EVENTS -->
+
+            <div
+                id="memory-incEvents"
+                class="memory-content"
+            >
+
+                <h3>
+                    🎉 INC Events
+                </h3>
+
+                <p class="memory-text">
+                    Our memories from INC Events. ❤️
+                </p>
+
+                <div
+                    class="memory-gallery"
+                    id="incEventsGallery"
+                >
+
+                    <img src="images/inc-event/inc-event-1.jpg" alt="INC Event 1" onclick="openImage(this)">
+                    <img src="images/inc-event/inc-event-2.jpg" alt="INC Event 2" onclick="openImage(this)">
+                    <img src="images/inc-event/inc-event-3.jpg" alt="INC Event 3" onclick="openImage(this)">
+                    <img src="images/inc-event/inc-event-4.jpg" alt="INC Event 4" onclick="openImage(this)">
+                    <img src="images/inc-event/inc-event-5.jpg" alt="INC Event 5" onclick="openImage(this)">
+                    <img src="images/inc-event/inc-event-6.jpg" alt="INC Event 6" onclick="openImage(this)">
+                    <img src="images/inc-event/inc-event-7.jpg" alt="INC Event 7" onclick="openImage(this)">
+                    <img src="images/inc-event/inc-event-8.jpg" alt="INC Event 8" onclick="openImage(this)">
+                    <img src="images/inc-event/inc-event-9.jpg" alt="INC Event 9" onclick="openImage(this)">
+                    <img src="images/inc-event/inc-event-10.jpg" alt="INC Event 10" onclick="openImage(this)">
+                    <img src="images/inc-event/inc-event-11.jpg" alt="INC Event 11" onclick="openImage(this)">
+                    <img src="images/inc-event/inc-event-12.jpg" alt="INC Event 12" onclick="openImage(this)">
+                    <img src="images/inc-event/inc-event-13.jpg" alt="INC Event 13" onclick="openImage(this)">
+
+                </div>
+
+                <button
+                    class="back-memory"
+                    onclick="closeMemory()"
+                >
+                    ← Back to Memories
+                </button>
+
+            </div>
+
+
+
+            <!-- FOOD TRIP -->
+
+            <div
+                id="memory-foodTrip"
+                class="memory-content"
+            >
+
+                <h3>
+                    🍔 Food Trip
+                </h3>
+
+                <p class="memory-text">
+                    All the food trips and delicious moments we've shared. ❤️
+                </p>
+
+                <div
+                    class="memory-gallery"
+                    id="foodTripGallery"
+                >
+
+                    <img src="images/food-trip/food-trip-1.jpg" alt="Food Trip 1" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-2.jpg" alt="Food Trip 2" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-3.jpg" alt="Food Trip 3" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-4.jpg" alt="Food Trip 4" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-5.jpg" alt="Food Trip 5" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-6.jpg" alt="Food Trip 6" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-7.jpg" alt="Food Trip 7" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-8.jpg" alt="Food Trip 8" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-9.jpg" alt="Food Trip 9" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-10.jpg" alt="Food Trip 10" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-11.jpg" alt="Food Trip 11" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-12.jpg" alt="Food Trip 12" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-13.jpg" alt="Food Trip 13" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-14.jpg" alt="Food Trip 14" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-15.jpg" alt="Food Trip 15" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-16.jpg" alt="Food Trip 16" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-17.jpg" alt="Food Trip 17" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-18.jpg" alt="Food Trip 18" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-19.jpg" alt="Food Trip 19" onclick="openImage(this)">
+                    <img src="images/food-trip/food-trip-20.jpg" alt="Food Trip 20" onclick="openImage(this)">
+
+                </div>
+
+                <button
+                    class="back-memory"
+                    onclick="closeMemory()"
+                >
+                    ← Back to Memories
+                </button>
+
+            </div>
+
+
+
+            <!-- MOTOR TRIP -->
+
+            <div
+                id="memory-motorTrip"
+                class="memory-content"
+            >
+
+                <h3>
+                    🏍️ Motor Trip
+                </h3>
+
+                <p class="memory-text">
+                    Our memories from our motor trips. 🏍️❤️
+                </p>
+
+                <div
+                    class="memory-gallery"
+                    id="motorTripGallery"
+                >
+
+                    <img src="images/motor-trip/motor-trip-1.jpg" alt="Motor Trip 1" onclick="openImage(this)">
+                    <img src="images/motor-trip/motor-trip-2.jpg" alt="Motor Trip 2" onclick="openImage(this)">
+                    <img src="images/motor-trip/motor-trip-3.jpg" alt="Motor Trip 3" onclick="openImage(this)">
+                    <img src="images/motor-trip/motor-trip-4.jpg" alt="Motor Trip 4" onclick="openImage(this)">
+
+                </div>
+
+                <button
+                    class="back-memory"
+                    onclick="closeMemory()"
+                >
+                    ← Back to Memories
+                </button>
+
+            </div>
+
+
+
+            <!-- CAR TRIP -->
+
+            <div
+                id="memory-carTrip"
+                class="memory-content"
+            >
+
+                <h3>
+                    🚗 Car Trip
+                </h3>
+
+                <p class="memory-text">
+                    Our memories from our car trips. 🚗❤️
+                </p>
+
+                <div
+                    class="memory-gallery"
+                    id="carTripGallery"
+                >
+
+                    <img src="images/car-trip/car-trip-1.jpg" alt="Car Trip 1" onclick="openImage(this)">
+                    <img src="images/car-trip/car-trip-2.jpg" alt="Car Trip 2" onclick="openImage(this)">
+                    <img src="images/car-trip/car-trip-3.jpg" alt="Car Trip 3" onclick="openImage(this)">
+                    <img src="images/car-trip/car-trip-4.jpg" alt="Car Trip 4" onclick="openImage(this)">
+
+                </div>
+
+                <button
+                    class="back-memory"
+                    onclick="closeMemory()"
+                >
+                    ← Back to Memories
+                </button>
+
+            </div>
+
+
+
+            <!-- RANDOM CUTE -->
+
+            <div
+                id="memory-randomCute"
+                class="memory-content"
+            >
+
+                <h3>
+                    🥰 Random Cute Pics / Moments
+                </h3>
+
+                <p class="memory-text">
+                    The random little moments that somehow became special memories. 🥺❤️
+                </p>
+
+                <div
+                    class="memory-gallery"
+                    id="randomCuteGallery"
+                >
+
+                    <!-- 50 RANDOM CUTE IMAGES -->
+
+                    <img src="images/random-cute/random-cute-1.jpg" alt="Random Cute 1" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-2.jpg" alt="Random Cute 2" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-3.jpg" alt="Random Cute 3" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-4.jpg" alt="Random Cute 4" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-5.jpg" alt="Random Cute 5" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-6.jpg" alt="Random Cute 6" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-7.jpg" alt="Random Cute 7" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-8.jpg" alt="Random Cute 8" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-9.jpg" alt="Random Cute 9" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-10.jpg" alt="Random Cute 10" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-11.jpg" alt="Random Cute 11" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-12.jpg" alt="Random Cute 12" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-13.jpg" alt="Random Cute 13" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-14.jpg" alt="Random Cute 14" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-15.jpg" alt="Random Cute 15" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-16.jpg" alt="Random Cute 16" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-17.jpg" alt="Random Cute 17" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-18.jpg" alt="Random Cute 18" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-19.jpg" alt="Random Cute 19" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-20.jpg" alt="Random Cute 20" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-21.jpg" alt="Random Cute 21" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-22.jpg" alt="Random Cute 22" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-23.jpg" alt="Random Cute 23" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-24.jpg" alt="Random Cute 24" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-25.jpg" alt="Random Cute 25" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-26.jpg" alt="Random Cute 26" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-27.jpg" alt="Random Cute 27" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-28.jpg" alt="Random Cute 28" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-29.jpg" alt="Random Cute 29" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-30.jpg" alt="Random Cute 30" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-31.jpg" alt="Random Cute 31" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-32.jpg" alt="Random Cute 32" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-33.jpg" alt="Random Cute 33" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-34.jpg" alt="Random Cute 34" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-35.jpg" alt="Random Cute 35" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-36.jpg" alt="Random Cute 36" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-37.jpg" alt="Random Cute 37" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-38.jpg" alt="Random Cute 38" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-39.jpg" alt="Random Cute 39" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-40.jpg" alt="Random Cute 40" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-41.jpg" alt="Random Cute 41" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-42.jpg" alt="Random Cute 42" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-43.jpg" alt="Random Cute 43" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-44.jpg" alt="Random Cute 44" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-45.jpg" alt="Random Cute 45" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-46.jpg" alt="Random Cute 46" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-47.jpg" alt="Random Cute 47" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-48.jpg" alt="Random Cute 48" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-49.jpg" alt="Random Cute 49" onclick="openImage(this)">
+                    <img src="images/random-cute/random-cute-50.jpg" alt="Random Cute 50" onclick="openImage(this)">
+
+                </div>
+
+                <button
+                    class="back-memory"
+                    onclick="closeMemory()"
+                >
+                    ← Back to Memories
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     IMAGE LIGHTBOX
+========================================= -->
+
+<div
+    id="imageLightbox"
+    class="image-lightbox"
+    onclick="closeImage(event)"
+>
+
+    <span
+        class="lightbox-close"
+        onclick="closeImage()"
+    >
+        ×
+    </span>
+
+
+    <!-- PREVIOUS -->
+
+    <button
+        id="lightboxPrev"
+        class="lightbox-prev"
+        onclick="previousImage(event)"
+    >
+        ❮
+    </button>
+
+
+    <!-- IMAGE -->
+
+    <img
+        id="lightboxImage"
+        src=""
+        alt="Expanded Memory"
+    >
+
+
+    <!-- NEXT -->
+
+    <button
+        id="lightboxNext"
+        class="lightbox-next"
+        onclick="nextImage(event)"
+    >
+        ❯
+    </button>
+
+
+    <!-- COUNTER -->
+
+    <div
+        id="lightboxCounter"
+        class="lightbox-counter"
+    >
+        1 / 1
+    </div>
+
+</div>
+
+
+
+<script>
+
+    /* =========================================
+       ANNIVERSARY DATE
+    ========================================= */
+
+    const correctDate = "2024-10-08";
+
+
+    /* =========================================
+       LIGHTBOX VARIABLES
+    ========================================= */
+
+    let currentGallery = [];
+
+    let currentImageIndex = 0;
+
+
+
+    /* =========================================
+       UNLOCK
+    ========================================= */
+
+    function unlockLove() {
+
+        const enteredDate =
+            document.getElementById("anniversaryDate").value;
+
+        const error =
+            document.getElementById("errorMessage");
+
+
+        if (enteredDate === correctDate) {
+
+            error.style.display = "none";
+
+            document.getElementById("loginScreen")
+                .style.display = "none";
+
+            document.getElementById("surpriseScreen")
+                .style.display = "flex";
+
+            startSurprise();
+
+        }
+
+        else {
+
+            error.style.display = "block";
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       SURPRISE
+    ========================================= */
+
+    function startSurprise() {
+
+        createConfetti();
+        createHearts();
+        createBalloons();
+
+
+        setTimeout(function() {
+
+            document.getElementById("continueBtn")
+                .style.display = "block";
+
+        }, 6000);
+
+    }
+
+
+
+    /* =========================================
+       CONFETTI
+    ========================================= */
+
+    function createConfetti() {
+
+        for (let i = 0; i < 120; i++) {
+
+            const confetti =
+                document.createElement("div");
+
+            confetti.classList.add("confetti");
+
+            confetti.style.left =
+                Math.random() * 100 + "vw";
+
+            confetti.style.animationDuration =
+                (Math.random() * 3 + 2) + "s";
+
+            confetti.style.animationDelay =
+                Math.random() * 3 + "s";
+
+            confetti.style.transform =
+                "rotate(" +
+                Math.random() * 360 +
+                "deg)";
+
+            confetti.style.background =
+                getRandomColor();
+
+            document
+                .getElementById("surpriseScreen")
+                .appendChild(confetti);
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       HEARTS
+    ========================================= */
+
+    function createHearts() {
+
+        const hearts = [
+            "❤️",
+            "💖",
+            "💕",
+            "💗",
+            "💓",
+            "💘",
+            "💙",
+            "🩵"
+        ];
+
+
+        for (let i = 0; i < 40; i++) {
+
+            const heart =
+                document.createElement("div");
+
+            heart.classList.add("floating-heart");
+
+            heart.innerHTML =
+                hearts[
+                    Math.floor(
+                        Math.random() *
+                        hearts.length
+                    )
+                ];
+
+            heart.style.left =
+                Math.random() * 100 + "vw";
+
+            heart.style.animationDuration =
+                (Math.random() * 5 + 5) + "s";
+
+            heart.style.animationDelay =
+                Math.random() * 5 + "s";
+
+            document
+                .getElementById("surpriseScreen")
+                .appendChild(heart);
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       BALLOONS
+    ========================================= */
+
+    function createBalloons() {
+
+        const balloons = [
+            "🎈",
+            "🎈",
+            "🎈",
+            "🎈",
+            "🎈"
+        ];
+
+
+        for (
+            let i = 0;
+            i < balloons.length;
+            i++
+        ) {
+
+            const balloon =
+                document.createElement("div");
+
+            balloon.classList.add("balloon");
+
+            balloon.innerHTML =
+                balloons[i];
+
+            balloon.style.left =
+                (10 + i * 20) + "%";
+
+            balloon.style.animationDelay =
+                (i * 0.5) + "s";
+
+            document
+                .getElementById("surpriseScreen")
+                .appendChild(balloon);
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       RANDOM COLORS
+    ========================================= */
+
+    function getRandomColor() {
+
+        const colors = [
+            "#ff5c8a",
+            "#ff9fba",
+            "#ffd166",
+            "#ff6b6b",
+            "#c77dff",
+            "#7bdff2",
+            "#5ca9e6"
+        ];
+
+        return colors[
+            Math.floor(
+                Math.random() *
+                colors.length
+            )
+        ];
+
+    }
+
+
+
+    /* =========================================
+       SHOW MAIN PAGE
+    ========================================= */
+
+    function showMainPage() {
+
+        document.getElementById("surpriseScreen")
+            .style.display = "none";
+
+        document.getElementById("mainPage")
+            .style.display = "block";
+
+        document.body.style.overflow = "auto";
+
+        updateCounter();
+
+    }
+
+
+
+    /* =========================================
+       OPEN MAIN SECTION
+    ========================================= */
+
+    function openSection(sectionID) {
+
+        const sections =
+            document.querySelectorAll(".section");
+
+        sections.forEach(function(section) {
+
+            section.style.display = "none";
+
+        });
+
+        document.getElementById(sectionID)
+            .style.display = "block";
+
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth"
+        });
+
+    }
+
+
+
+    /* =========================================
+       OPEN MEMORY
+    ========================================= */
+
+    function openMemory(memoryID) {
+
+        const memories =
+            document.querySelectorAll(".memory-content");
+
+        memories.forEach(function(memory) {
+
+            memory.classList.remove("active");
+
+        });
+
+        document.getElementById("memoryMenu")
+            .style.display = "none";
+
+        document
+            .getElementById(
+                "memory-" + memoryID
+            )
+            .classList.add("active");
+
+        document
+            .getElementById("memories")
+            .scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+    }
+
+
+
+    /* =========================================
+       CLOSE MEMORY
+    ========================================= */
+
+    function closeMemory() {
+
+        const memories =
+            document.querySelectorAll(".memory-content");
+
+        memories.forEach(function(memory) {
+
+            memory.classList.remove("active");
+
+        });
+
+        document.getElementById("memoryMenu")
+            .style.display = "grid";
+
+        document
+            .getElementById("memories")
+            .scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+    }
+
+
+
+    /* =========================================
+       OPEN IMAGE
+       NOW SUPPORTS NEXT/PREVIOUS
+    ========================================= */
+
+    function openImage(image) {
+
+        const lightbox =
+            document.getElementById("imageLightbox");
+
+        const lightboxImage =
+            document.getElementById("lightboxImage");
+
+
+        /*
+         * Kunin lahat ng images
+         * sa parehong gallery.
+         */
+
+        const gallery =
+            image.closest(".memory-gallery");
+
+
+        if (gallery) {
+
+            currentGallery =
+                Array.from(
+                    gallery.querySelectorAll("img")
+                );
+
+        }
+
+        else {
+
+            currentGallery = [image];
+
+        }
+
+
+        /*
+         * Hanapin kung pang-ilan
+         * yung image na pinindot.
+         */
+
+        currentImageIndex =
+            currentGallery.indexOf(image);
+
+
+        if (currentImageIndex < 0) {
+            currentImageIndex = 0;
+        }
+
+
+        showLightboxImage();
+
+
+        lightbox.classList.add("active");
+
+
+        document.body.style.overflow =
+            "hidden";
+
+    }
+
+
+
+    /* =========================================
+       SHOW CURRENT LIGHTBOX IMAGE
+    ========================================= */
+
+    function showLightboxImage() {
+
+        const lightboxImage =
+            document.getElementById("lightboxImage");
+
+        const counter =
+            document.getElementById("lightboxCounter");
+
+
+        const image =
+            currentGallery[currentImageIndex];
+
+
+        if (!image) {
+            return;
+        }
+
+
+        lightboxImage.src =
+            image.src;
+
+        lightboxImage.alt =
+            image.alt;
+
+
+        counter.innerHTML =
+            (currentImageIndex + 1) +
+            " / " +
+            currentGallery.length;
+
+
+        /*
+         * Itago ang arrows kapag
+         * isang picture lang.
+         */
+
+        const prev =
+            document.getElementById("lightboxPrev");
+
+        const next =
+            document.getElementById("lightboxNext");
+
+
+        if (currentGallery.length <= 1) {
+
+            prev.style.display = "none";
+            next.style.display = "none";
+            counter.style.display = "none";
+
+        }
+
+        else {
+
+            prev.style.display = "flex";
+            next.style.display = "flex";
+            counter.style.display = "block";
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       NEXT IMAGE
+    ========================================= */
+
+    function nextImage(event) {
+
+        if (event) {
+            event.stopPropagation();
+        }
+
+
+        if (currentGallery.length <= 1) {
+            return;
+        }
+
+
+        currentImageIndex++;
+
+
+        /*
+         * Kapag nasa last picture,
+         * balik sa first picture.
+         */
+
+        if (
+            currentImageIndex >=
+            currentGallery.length
+        ) {
+
+            currentImageIndex = 0;
+
+        }
+
+
+        showLightboxImage();
+
+    }
+
+
+
+    /* =========================================
+       PREVIOUS IMAGE
+    ========================================= */
+
+    function previousImage(event) {
+
+        if (event) {
+            event.stopPropagation();
+        }
+
+
+        if (currentGallery.length <= 1) {
+            return;
+        }
+
+
+        currentImageIndex--;
+
+
+        /*
+         * Kapag nasa first picture,
+         * punta sa last picture.
+         */
+
+        if (currentImageIndex < 0) {
+
+            currentImageIndex =
+                currentGallery.length - 1;
+
+        }
+
+
+        showLightboxImage();
+
+    }
+
+
+
+    /* =========================================
+       CLOSE IMAGE
+    ========================================= */
+
+    function closeImage(event) {
+
+        /*
+         * Kapag image mismo ang pinindot,
+         * huwag magsara.
+         */
+
+        if (
+            event &&
+            event.target.id === "lightboxImage"
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+         * Kapag navigation buttons,
+         * huwag magsara.
+         */
+
+        if (
+            event &&
+            (
+                event.target.id === "lightboxNext" ||
+                event.target.id === "lightboxPrev"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        const lightbox =
+            document.getElementById("imageLightbox");
+
+        lightbox.classList.remove("active");
+
+        document.body.style.overflow =
+            "auto";
+
+    }
+
+
+
+    /* =========================================
+       KEYBOARD CONTROLS
+    ========================================= */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            const lightbox =
+                document.getElementById(
+                    "imageLightbox"
+                );
+
+
+            if (
+                !lightbox.classList.contains("active")
+            ) {
+                return;
+            }
+
+
+            if (event.key === "Escape") {
+
+                lightbox.classList.remove(
+                    "active"
+                );
+
+                document.body.style.overflow =
+                    "auto";
+
+            }
+
+
+            if (event.key === "ArrowRight") {
+
+                nextImage();
+
+            }
+
+
+            if (event.key === "ArrowLeft") {
+
+                previousImage();
+
+            }
+
+        }
+    );
+
+
+
+    /* =========================================
+       LOVE COUNTER
+    ========================================= */
+
+    function updateCounter() {
+
+        const start =
+            new Date(
+                "2024-10-08T00:00:00"
+            );
+
+        const now =
+            new Date();
+
+        let years =
+            now.getFullYear() -
+            start.getFullYear();
+
+        let months =
+            now.getMonth() -
+            start.getMonth();
+
+        let days =
+            now.getDate() -
+            start.getDate();
+
+
+        if (days < 0) {
+
+            months--;
+
+            const previousMonth =
+                new Date(
+                    now.getFullYear(),
+                    now.getMonth(),
+                    0
+                );
+
+            days +=
+                previousMonth.getDate();
+
+        }
+
+
+        if (months < 0) {
+
+            years--;
+
+            months += 12;
+
+        }
+
+
+        const hours =
+            now.getHours();
+
+        const minutes =
+            now.getMinutes();
+
+        const seconds =
+            now.getSeconds();
+
+
+        document
+            .getElementById("loveCounter")
+            .innerHTML =
+
+            years +
+            " Years, " +
+
+            months +
+            " Months, " +
+
+            days +
+            " Days<br>" +
+
+            hours +
+            " Hours, " +
+
+            minutes +
+            " Minutes, " +
+
+            seconds +
+            " Seconds ❤️💙";
+
+    }
+
+
+
+    /* =========================================
+       UPDATE COUNTER
+    ========================================= */
+
+    setInterval(
+        updateCounter,
+        1000
+    );
+
+</script>
+
+</body>
+</html>
