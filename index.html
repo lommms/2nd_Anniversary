@@ -1038,6 +1038,268 @@
 
         }
 
+    
+
+        /* =========================================
+           EXTRA POLISH / ELEGANT EFFECTS
+           ========================================= */
+
+        html { scroll-behavior: smooth; }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(12px);
+            opacity: .42;
+        }
+
+        body::before {
+            top: -90px;
+            left: -90px;
+            background: radial-gradient(circle, rgba(255,125,180,.48), transparent 68%);
+            animation: ambientFloat 9s ease-in-out infinite;
+        }
+
+        body::after {
+            right: -90px;
+            bottom: -90px;
+            background: radial-gradient(circle, rgba(100,180,255,.42), transparent 68%);
+            animation: ambientFloat 11s ease-in-out infinite reverse;
+        }
+
+        .login-card,
+        .counter-card,
+        .menu button,
+        .section,
+        .memory-card,
+        .memory-content {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .login-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.75);
+        }
+
+        .login-card::before,
+        .counter-card::before,
+        .memory-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(115deg, transparent 25%, rgba(255,255,255,.55) 50%, transparent 75%);
+            transform: translateX(-120%);
+            transition: transform .8s ease;
+            pointer-events: none;
+        }
+
+        .login-card:hover::before,
+        .counter-card:hover::before,
+        .memory-card:hover::before {
+            transform: translateX(120%);
+        }
+
+        .unlock-btn,
+        #continueBtn,
+        .back-memory,
+        .lightbox-prev,
+        .lightbox-next {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .unlock-btn::after,
+        #continueBtn::after,
+        .back-memory::after,
+        .lightbox-prev::after,
+        .lightbox-next::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(100deg, transparent 25%, rgba(255,255,255,.28) 50%, transparent 75%);
+            transform: translateX(-120%);
+            transition: transform .65s ease;
+        }
+
+        .unlock-btn:hover::after,
+        #continueBtn:hover::after,
+        .back-memory:hover::after,
+        .lightbox-prev:hover::after,
+        .lightbox-next:hover::after {
+            transform: translateX(120%);
+        }
+
+        .unlock-btn:active,
+        #continueBtn:active,
+        .back-memory:active,
+        .menu button:active,
+        .memory-card:active {
+            transform: scale(.97);
+        }
+
+        .main-container h1 {
+            animation: titleFloat 4s ease-in-out infinite;
+        }
+
+        .subtitle {
+            opacity: 0;
+            animation: softAppear .8s .2s ease forwards;
+        }
+
+        .counter-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.8);
+            transition: transform .35s ease, box-shadow .35s ease;
+        }
+
+        .counter-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 38px rgba(80,100,180,.16);
+        }
+
+        #loveCounter {
+            transition: transform .25s ease;
+        }
+
+        .menu button {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.85);
+            transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+        }
+
+        .menu button:hover {
+            box-shadow: 0 12px 28px rgba(100,100,180,.16);
+        }
+
+        .memory-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.8);
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .memory-card:hover {
+            box-shadow: 0 14px 30px rgba(100,100,180,.16);
+        }
+
+        .memory-card span {
+            transition: transform .3s ease;
+        }
+
+        .memory-card:hover span {
+            transform: scale(1.13) rotate(-4deg);
+        }
+
+        .section {
+            border: 1px solid rgba(255,255,255,.85);
+            border-left: 4px solid #e875a2;
+            border-right: 4px solid #70afe5;
+        }
+
+        .memory-content {
+            border: 1px solid rgba(255,255,255,.85);
+            box-shadow: 0 12px 30px rgba(80,100,180,.08);
+        }
+
+        .memory-gallery img {
+            transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease, filter .4s ease;
+        }
+
+        .memory-gallery img:hover {
+            transform: translateY(-5px) scale(1.025);
+            box-shadow: 0 14px 28px rgba(70,80,150,.2);
+            filter: saturate(1.06);
+        }
+
+        .memory-video {
+            transition: transform .35s ease, box-shadow .35s ease;
+        }
+
+        .memory-video:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(60,70,130,.2);
+        }
+
+        .image-lightbox {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .image-lightbox.active .lightbox-prev,
+        .image-lightbox.active .lightbox-next,
+        .image-lightbox.active .lightbox-counter,
+        .image-lightbox.active .lightbox-close {
+            animation: softAppear .35s ease both;
+        }
+
+        .image-lightbox.active img {
+            animation: lightboxBouncy .42s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .floating-heart {
+            text-shadow: 0 4px 14px rgba(220,70,130,.18);
+        }
+
+        .confetti { border-radius: 3px; }
+
+        .page-enter {
+            animation: pageEnter .55s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        .shake {
+            animation: gentleShake .38s ease;
+        }
+
+        @keyframes ambientFloat {
+            0%,100% { transform: translate(0,0) scale(1); }
+            50% { transform: translate(25px,18px) scale(1.08); }
+        }
+
+        @keyframes titleFloat {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        @keyframes softAppear {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pageEnter {
+            from { opacity: 0; transform: translateY(18px) scale(.985); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes lightboxBouncy {
+            from { opacity: 0; transform: scale(.82); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes gentleShake {
+            0%,100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
+        }
+
     </style>
 
 </head>
@@ -2857,6 +3119,108 @@ document.querySelectorAll("video").forEach(function(video) {
     });
 });
 </script>
+
+
+
+<script>
+/* =========================================
+   EXTRA INTERACTIONS / TRANSITIONS
+   ========================================= */
+
+function animatePage(element) {
+    if (!element) return;
+    element.classList.remove("page-enter");
+    void element.offsetWidth;
+    element.classList.add("page-enter");
+}
+
+const originalShowMainPage = window.showMainPage;
+if (typeof originalShowMainPage === "function") {
+    window.showMainPage = function() {
+        originalShowMainPage();
+        animatePage(document.getElementById("mainPage"));
+    };
+}
+
+const originalOpenSection = window.openSection;
+if (typeof originalOpenSection === "function") {
+    window.openSection = function(id) {
+        originalOpenSection(id);
+        animatePage(document.getElementById(id));
+    };
+}
+
+const originalOpenMemory = window.openMemory;
+if (typeof originalOpenMemory === "function") {
+    window.openMemory = function(id) {
+        originalOpenMemory(id);
+        animatePage(document.getElementById("memory-" + id));
+    };
+}
+
+const originalCloseMemory = window.closeMemory;
+if (typeof originalCloseMemory === "function") {
+    window.closeMemory = function() {
+        originalCloseMemory();
+        animatePage(document.getElementById("memories"));
+    };
+}
+
+const originalUnlockLove = window.unlockLove;
+if (typeof originalUnlockLove === "function") {
+    window.unlockLove = function() {
+        const input = document.getElementById("anniversaryDate");
+        const error = document.getElementById("errorMessage");
+        originalUnlockLove();
+        if (error && error.style.display === "block") {
+            const card = document.querySelector(".login-card");
+            card.classList.remove("shake");
+            void card.offsetWidth;
+            card.classList.add("shake");
+            if (input) input.focus();
+        }
+    };
+}
+
+/* Gentle stagger on memory cards */
+document.querySelectorAll(".memory-card").forEach((card, index) => {
+    card.style.animationDelay = (index * 45) + "ms";
+});
+
+/* Small ripple effect for buttons */
+document.querySelectorAll("button").forEach(button => {
+    button.addEventListener("click", function(e) {
+        const rect = this.getBoundingClientRect();
+        const ripple = document.createElement("span");
+        ripple.style.position = "absolute";
+        ripple.style.width = ripple.style.height = "18px";
+        ripple.style.left = (e.clientX - rect.left - 9) + "px";
+        ripple.style.top = (e.clientY - rect.top - 9) + "px";
+        ripple.style.borderRadius = "50%";
+        ripple.style.background = "rgba(255,255,255,.45)";
+        ripple.style.transform = "scale(0)";
+        ripple.style.pointerEvents = "none";
+        ripple.style.animation = "ripple .55s ease-out";
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+    });
+});
+
+/* Make the counter subtly breathe every second */
+const counter = document.getElementById("loveCounter");
+if (counter) {
+    setInterval(() => {
+        counter.style.transform = "scale(1.018)";
+        setTimeout(() => counter.style.transform = "scale(1)", 180);
+    }, 5000);
+}
+</script>
+
+<style>
+@keyframes ripple {
+    to { transform: scale(18); opacity: 0; }
+}
+</style>
 
 </body>
 </html>
