@@ -2838,5 +2838,25 @@ Here's to more memories, more laughter, more dates, and more years together.
 
 </script>
 
+
+<script>
+/* =========================
+   GITHUB MEDIA FALLBACK
+   =========================
+   If a media file is not uploaded yet, hide the broken item cleanly.
+*/
+document.querySelectorAll("img").forEach(function(img) {
+    img.addEventListener("error", function() {
+        this.style.display = "none";
+    });
+});
+
+document.querySelectorAll("video").forEach(function(video) {
+    video.addEventListener("error", function() {
+        this.style.display = "none";
+    });
+});
+</script>
+
 </body>
 </html>
