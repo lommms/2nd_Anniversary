@@ -804,8 +804,8 @@
 
             transform: translateY(-50%);
 
-            width: 55px;
-            height: 55px;
+            width: 64px;
+            height: 64px;
 
             border: none;
 
@@ -813,7 +813,7 @@
 
             color: white;
 
-            font-size: 28px;
+            font-size: 32px;
 
             font-weight: bold;
 
@@ -1005,12 +1005,14 @@
             }
 
             .image-lightbox {
-                padding: 60px 50px;
+                padding: 58px 8px 70px;
             }
 
             .image-lightbox img {
-                max-width: 92%;
+                max-width: 96%;
                 max-height: 78vh;
+                min-width: 1px;
+                min-height: 1px;
             }
 
             .lightbox-close {
@@ -1022,10 +1024,10 @@
             .lightbox-prev,
             .lightbox-next {
 
-                width: 45px;
-                height: 45px;
+                width: 64px;
+                height: 64px;
 
-                font-size: 22px;
+                font-size: 30px;
             }
 
             .lightbox-prev {
@@ -2794,11 +2796,28 @@ Here's to more memories, more laughter, more dates, and more years together.
         }
 
 
-        lightboxImage.src =
+        /*
+         * Use the actual image URL resolved from the page.
+         * This is more reliable on GitHub Pages than relying
+         * only on a possibly-relative src string.
+         */
+        const imageSrc =
+            image.currentSrc ||
+            image.getAttribute("src") ||
             image.src;
 
+        lightboxImage.src =
+            new URL(imageSrc, document.baseURI).href;
+
         lightboxImage.alt =
-            image.alt;
+            image.alt || "Memory photo";
+
+        lightboxImage.style.display = "block";
+        lightboxImage.onerror = function() {
+            console.warn("Lightbox image could not be loaded:", this.src);
+        };
+
+
 
 
         counter.innerHTML =
@@ -2924,7 +2943,37 @@ Here's to more memories, more laughter, more dates, and more years together.
     function closeImage(event) {
 
         /*
-         * Kapag image mismo ang pinindot,
+         * MOBILE TAP NAVIGATION
+         * Tap left side = previous
+         * Tap right side = next
+         *
+         * This lets the user change photos by
+         * tapping the side of the phone instead
+         * of trying to hit a tiny arrow.
+         */
+
+        if (
+            event &&
+            window.innerWidth <= 768 &&
+            event.target.id !== "lightboxNext" &&
+            event.target.id !== "lightboxPrev" &&
+            event.target.className !== "lightbox-close" &&
+            event.target.id !== "lightboxCounter"
+        ) {
+
+            if (event.clientX < window.innerWidth / 2) {
+                previousImage(event);
+            } else {
+                nextImage(event);
+            }
+
+            return;
+
+        }
+
+
+        /*
+         * Kapag image mismo ang pinindot sa PC,
          * huwag magsara.
          */
 
@@ -2966,6 +3015,79 @@ Here's to more memories, more laughter, more dates, and more years together.
 
     }
 
+
+
+    /* =========================================
+       MOBILE SWIPE CONTROLS
+       Swipe left  = next
+       Swipe right = previous
+    ========================================= */
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    document.addEventListener("touchstart", function(event) {
+
+        const lightbox =
+            document.getElementById("imageLightbox");
+
+        if (!lightbox.classList.contains("active")) {
+            return;
+        }
+
+        if (!event.touches || !event.touches.length) {
+            return;
+        }
+
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+
+    }, { passive: true });
+
+
+    document.addEventListener("touchend", function(event) {
+
+        const lightbox =
+            document.getElementById("imageLightbox");
+
+        if (!lightbox.classList.contains("active")) {
+            return;
+        }
+
+        if (!event.changedTouches || !event.changedTouches.length) {
+            return;
+        }
+
+        const touchEndX =
+            event.changedTouches[0].clientX;
+
+        const touchEndY =
+            event.changedTouches[0].clientY;
+
+        const diffX =
+            touchEndX - touchStartX;
+
+        const diffY =
+            touchEndY - touchStartY;
+
+        /*
+         * Only treat it as a swipe when the
+         * horizontal movement is clearly bigger.
+         */
+        if (
+            Math.abs(diffX) > 50 &&
+            Math.abs(diffX) > Math.abs(diffY)
+        ) {
+
+            if (diffX < 0) {
+                nextImage();
+            } else {
+                previousImage();
+            }
+
+        }
+
+    }, { passive: true });
 
 
     /* =========================================
